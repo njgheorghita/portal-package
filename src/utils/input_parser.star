@@ -1,6 +1,6 @@
 DEFAULT_IMAGES = {
     "trin": "portalnetwork/trin:latest",
-    "bridge": "portalnetwork/trin:kurtosis-bridge",
+    "bridge": "portalnetwork/trin:latest-bridge",
     "fluffy": "statusim/nimbus-fluffy:amd64-master-latest",
 }
 
