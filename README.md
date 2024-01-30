@@ -11,7 +11,14 @@ To easily spin up testnets of portal clients, with all kinds of variations, and 
 If you don't know what those are, you probably don't have access to them. But we are working on making this project accessible for everyone to use asap.
 
 # How?
-1. Create a `.secrets.json` file in the root directory, with the following keys and their respective values: ["PANDAOPS_CLIENT_ID", "PANDAOPS_CLIENT_SECRET"]. These are needed for the bridge to access the data provider.
+1. Create a `.secrets.json` file in the root directory. These are needed for the bridge to access the data provider.
+    ### Example
+    ```json
+    {
+        "PANDAOPS_CLIENT_ID": "xyz",
+        "PANDAOPS_CLIENT_SECRET": "abc"
+    }
+    ```
 2. Download [Kurtosis](https://docs.kurtosis.com/install)
 3. Start Docker
 4. `kurtosis clean -a && kurtosis run --enclave kurtosis-trin .`
