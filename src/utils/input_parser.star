@@ -116,6 +116,6 @@ def default_bridge():
         "min_mem": 0,
         "max_mem": 100,
         "private_key": "0x2101010101010101010101010101010101010101010101010101010101010101",
-        "mode": "latest",
+        "mode": "single:b1",
         "image": DEFAULT_IMAGES["bridge"],
     }
