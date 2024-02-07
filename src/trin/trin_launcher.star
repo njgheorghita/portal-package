@@ -1,4 +1,9 @@
 constants = import_module("../utils/constants.star")
+client_context = import_module("../utils/client_context.star")
+node_metrics = import_module("../utils/node_metrics.star")
+
+METRICS_PATH = "/metrics"
+METRICS_PORT_NUM = 8000
 
 def launch(
     plan,
@@ -21,6 +26,11 @@ def launch(
                     application_protocol = "http",
                     wait = "15s"
                 ),
+                "metrics": PortSpec(
+                    number = METRICS_PORT_NUM,
+                    application_protocol = "http",
+                    wait = "15s"
+                ),
                 "utp": PortSpec(
                     number = 9009,
                     transport_protocol = "UDP",
@@ -32,14 +42,30 @@ def launch(
             min_cpu = min_cpu,
             max_memory = max_mem,
             min_memory = min_mem,
-			entrypoint = [
-				"/usr/bin/trin",
+            env_vars = {
+                "RUST_LOG": "info",
+            },
+            entrypoint = [
+                "/usr/bin/trin",
                 "--bootnodes={}".format(bootnode_enrs),
                 "--web3-transport=http",
                 "--web3-http-address=http://0.0.0.0:8545",
                 "--external-address={}:9009".format(constants.PRIVATE_IP_ADDRESS_PLACEHOLDER),
-			],
+                "--enable-metrics-with-url=0.0.0.0:{}".format(METRICS_PORT_NUM),
+                "--networks=history,beacon",
+            ],
         ),
     )
 
-    return trin
+    metric_url = "{0}:{1}".format(trin.ip_address, METRICS_PORT_NUM)
+    metrics_info = node_metrics.new_node_metrics_info(
+        service_name, METRICS_PATH, metric_url
+    )
+
+    return client_context.new_client_context(
+        constants.CLIENT_TYPE.trin,
+        trin.ip_address,
+        METRICS_PORT_NUM,
+        service_name,
+        metrics_info,
+    )
