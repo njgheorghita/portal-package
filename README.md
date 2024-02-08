@@ -7,7 +7,8 @@ A [Kurtosis](https://docs.kurtosis.com/) project for the [Portal Network](https:
 # Why?
 To easily spin up testnets of portal clients, with all kinds of variations, and test them.
 
-~~~ TO RUN THIS PROJECT YOU NEED PANDAOPS SECRETS & AN INFURA ID ~~~
+***TO RUN THIS PROJECT YOU NEED PANDAOPS SECRETS & AN INFURA ID***
+
 If you don't know what pandaops secrets are, you probably don't have access to them. But we are working on making this project accessible for everyone to use asap.
 
 # How?
