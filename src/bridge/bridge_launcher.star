@@ -27,7 +27,7 @@ def launch(
                 )
             },
             env_vars = {
-                "RUST_LOG": "info,surf=warn",
+                "RUST_LOG": "info,portal_bridge=debug,surf=warn",
                 "PANDAOPS_CLIENT_ID": secrets["PANDAOPS_CLIENT_ID"],
                 "PANDAOPS_CLIENT_SECRET": secrets["PANDAOPS_CLIENT_SECRET"],
             },

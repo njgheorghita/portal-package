@@ -7,8 +7,8 @@ A [Kurtosis](https://docs.kurtosis.com/) project for the [Portal Network](https:
 # Why?
 To easily spin up testnets of portal clients, with all kinds of variations, and test them.
 
-!!! TO RUN THIS PROJECT YOU NEED PANDAOPS SECRETS !!!
-If you don't know what those are, you probably don't have access to them. But we are working on making this project accessible for everyone to use asap.
+~~~ TO RUN THIS PROJECT YOU NEED PANDAOPS SECRETS & AN INFURA ID ~~~
+If you don't know what pandaops secrets are, you probably don't have access to them. But we are working on making this project accessible for everyone to use asap.
 
 # How?
 1. Create a `.secrets.json` file in the root directory. These are needed for the bridge to access the data provider.
@@ -16,7 +16,8 @@ If you don't know what those are, you probably don't have access to them. But we
     ```json
     {
         "PANDAOPS_CLIENT_ID": "xyz",
-        "PANDAOPS_CLIENT_SECRET": "abc"
+        "PANDAOPS_CLIENT_SECRET": "abc",
+        "TRIN_INFURA_PROJECT_ID": "xxx"
     }
     ```
 2. Download [Kurtosis](https://docs.kurtosis.com/install)
@@ -41,6 +42,9 @@ This will create a testnet with one bridge (`mode=single:b1`), one bootnode (tri
 
 To create a testnet with custom settings, all you need to do is adjust the `config.yml` file as required. To add a participant/bridge/bootnode service, just add another entry to the respective list. It's not required to explicitly define all fields, fields that are omitted from the `config.yml` will be overwritten with their default value (defined inside `src/utils/input_parser.star`. It is recommended that a `private_key` is included for each service defined inside the config.
 
+### View Glados / Metrics
+By default, running this kurtosis package will start a [Glados](https://github.com/ethereum/glados) instance and launch a Grafana dashboard for metrics. To view either of these, just grab the url (for `glados-web` or `grafana`) from the `enclave inspect` command and paste it into your local browser.
+
 ### Inspect an enclave
 `kurtosis enclave inspect kurtosis-trin`
 
@@ -53,9 +57,7 @@ To create a testnet with custom settings, all you need to do is adjust the `conf
 
 # Todo
 - support fluffy bridge
-- support infura bridge
 - support fluffy bootnode
 - add ultralight participant / bootnode
-- metrics
 - log levels
 - anything else? just create an issue for desired features.

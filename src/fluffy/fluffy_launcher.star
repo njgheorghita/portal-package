@@ -1,4 +1,5 @@
 constants = import_module("../utils/constants.star")
+client_context = import_module("../utils/client_context.star")
 
 def launch(
     plan,
@@ -40,4 +41,10 @@ def launch(
         ),
     )
 
-    return fluffy
+    return client_context.new_client_context(
+        constants.CLIENT_TYPE.fluffy,
+        fluffy.ip_address,
+        8545,
+        service_name,
+        None, # metrics info - not yet supported for fluffy
+    )

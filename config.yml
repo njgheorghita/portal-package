@@ -3,13 +3,19 @@ participants:
     min_cpu: 0
     max_cpu: 100
     min_mem: 0
-    max_mem: 100
+    max_mem: 1000
     private_key: "0x0101010101010101010101010101010101010101010101010101010101010101"
+  - client_type: trin
+    min_cpu: 0
+    max_cpu: 100
+    min_mem: 0
+    max_mem: 1000
+    private_key: "0x0801010101010101010101010101010101010101010101010101010101010101"
   - client_type: fluffy
     min_cpu: 0
     max_cpu: 100
     min_mem: 0
-    max_mem: 100
+    max_mem: 1000
     private_key: "0x1101010101010101010101010101010101010101010101010101010101010101"
 bridges:
   - client_type: bridge
@@ -17,18 +23,18 @@ bridges:
     min_cpu: 0
     max_cpu: 100
     min_mem: 0
-    max_mem: 100
+    max_mem: 1000
     private_key: "0x5101010101010101010101010101010101010101010101010101010101010101"
 bootnodes:
   - client_type: trin
     min_cpu: 0
     max_cpu: 100
     min_mem: 0
-    max_mem: 100
+    max_mem: 1000
     private_key: "0x2101010101010101010101010101010101010101010101010101010101010101"
   - client_type: trin
     min_cpu: 0
     max_cpu: 100
     min_mem: 0
-    max_mem: 100
+    max_mem: 1000
     private_key: "0x3101010101010101010101010101010101010101010101010101010101010101"

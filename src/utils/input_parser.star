@@ -4,7 +4,6 @@ DEFAULT_IMAGES = {
     "fluffy": "statusim/nimbus-fluffy:amd64-master-latest",
 }
 
-
 def input_parser(plan, input_args):
     result = default_input_args()
     for attr in input_args:
