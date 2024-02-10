@@ -9,9 +9,9 @@ POSTGRES_MIN_MEMORY = 32
 POSTGRES_MAX_MEMORY = 1024
 
 GLADOS_MIN_CPU = 0
-GLADOS_MAX_CPU = 1000
+GLADOS_MAX_CPU = 5000
 GLADOS_MIN_MEMORY = 32
-GLADOS_MAX_MEMORY = 1024
+GLADOS_MAX_MEMORY = 2048
 
 def launch(
     plan,
@@ -74,7 +74,7 @@ def launch(
             max_memory = GLADOS_MAX_MEMORY,
             min_memory = GLADOS_MIN_MEMORY,
             env_vars = {
-                "RUST_LOG": "warn,glados_audit=debug",
+                "RUST_LOG": "warn,glados_audit=info",
             },
             entrypoint = [
                 "/usr/bin/glados-audit",
