@@ -19,7 +19,7 @@ participants:
     private_key: "0x1101010101010101010101010101010101010101010101010101010101010101"
 bridges:
   - client_type: bridge
-    mode: single:b1
+    mode: latest
     min_cpu: 0
     max_cpu: 100
     min_mem: 0
@@ -32,7 +32,7 @@ bootnodes:
     min_mem: 0
     max_mem: 1000
     private_key: "0x2101010101010101010101010101010101010101010101010101010101010101"
-  - client_type: trin
+  - client_type: fluffy
     min_cpu: 0
     max_cpu: 100
     min_mem: 0

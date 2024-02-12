@@ -38,6 +38,9 @@ When you run kurtosis, it's typical to prepend the `run` command with a `clean` 
 
 This will create a testnet with one bridge (`mode=single:b1`), one bootnode (trin), and one trin participant.
 
+### Always pull latest images from docker hub
+`kurtosis clean -a && kurtosis run --image-download always --enclave kurtosis-trin . "$(cat ./config.yml)"`
+
 ### Run custom settings
 `kurtosis clean -a && kurtosis run --enclave kurtosis-trin . "$(cat ./config.yml)"`
 

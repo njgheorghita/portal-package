@@ -1,5 +1,6 @@
 constants = import_module("./utils/constants.star")
 trin = import_module("./trin/trin_launcher.star")
+fluffy = import_module("./fluffy/fluffy_launcher.star")
 enr_utils = import_module("./utils/enr.star")
 
 def launch(
@@ -11,6 +12,7 @@ def launch(
 
     launchers = {
         constants.CLIENT_TYPE.trin: trin.launch,
+        constants.CLIENT_TYPE.fluffy: fluffy.launch,
     }
 
     all_contexts = []
