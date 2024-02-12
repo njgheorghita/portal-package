@@ -30,6 +30,7 @@ def launch(
                 "RUST_LOG": "info,portal_bridge=debug,surf=warn",
                 "PANDAOPS_CLIENT_ID": secrets["PANDAOPS_CLIENT_ID"],
                 "PANDAOPS_CLIENT_SECRET": secrets["PANDAOPS_CLIENT_SECRET"],
+                "BASE_EL_ENDPOINT": "https://reth-lighthouse.mainnet.na1.ethpandaops.io/",
             },
             min_cpu = min_cpu,
             max_cpu = max_cpu,
