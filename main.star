@@ -43,9 +43,9 @@ def run(plan, args={}):
 
     plan.print("Launching glados")
 
-    # no custom config options for glados... yet
     glados_service = glados.launch(
         plan,
+        args_with_right_defaults.glados,
         bootnode_enrs,
     )
 
