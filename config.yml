@@ -38,3 +38,5 @@ bootnodes:
     min_mem: 0
     max_mem: 1000
     private_key: "0x3101010101010101010101010101010101010101010101010101010101010101"
+glados:
+  - client_type: trin

@@ -34,6 +34,12 @@ def input_parser(plan, input_args):
                     new_bridge[sub_attr] = sub_value
                 bridges.append(new_bridge)
             result[attr] = bridges
+        if attr == "glados":
+            new_glados = default_glados()
+            for sub_attr, sub_value in input_args[attr][0].items():
+                # override default values with values defined in config.yaml
+                new_glados[sub_attr] = sub_value
+            result[attr] = new_glados
 
     return struct(
         participants=[
@@ -73,6 +79,10 @@ def input_parser(plan, input_args):
             )
             for bridge in result["bridges"]
         ],
+        glados=struct(
+            client_type=result["glados"]["client_type"],
+            image=DEFAULT_IMAGES[result["glados"]["client_type"]],
+        ),
     )
 
 def default_input_args():
@@ -93,7 +103,6 @@ def default_participant():
         "min_mem": 0,
         "max_mem": 100,
         "private_key": "0x0101010101010101010101010101010101010101010101010101010101010101",
-        "image": DEFAULT_IMAGES["trin"],
     }
 
 def default_bootnode():
@@ -104,7 +113,6 @@ def default_bootnode():
         "min_mem": 0,
         "max_mem": 100,
         "private_key": "0x1101010101010101010101010101010101010101010101010101010101010101",
-        "image": DEFAULT_IMAGES["trin"],
     }
 
 def default_bridge():
@@ -116,5 +124,9 @@ def default_bridge():
         "max_mem": 100,
         "private_key": "0x2101010101010101010101010101010101010101010101010101010101010101",
         "mode": "single:b1",
-        "image": DEFAULT_IMAGES["bridge"],
+    }
+
+def default_glados():
+    return {
+        "client_type": "trin",
     }

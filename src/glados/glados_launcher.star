@@ -1,6 +1,7 @@
 constants = import_module("../utils/constants.star")
 postgres = import_module("github.com/kurtosis-tech/postgres-package/main.star")
-
+glados_trin = import_module("./glados_trin_launcher.star")
+glados_fluffy = import_module("./glados_fluffy_launcher.star")
 
 # The min/max CPU/memory that postgres can use
 POSTGRES_MIN_CPU = 10
@@ -15,6 +16,7 @@ GLADOS_MAX_MEMORY = 2048
 
 def launch(
     plan,
+    glados_config,
     bootnode_enrs,
 ):
     postgres_output = postgres.run(
@@ -27,43 +29,29 @@ def launch(
         persistent=False,
     )
 
-    trin = plan.add_service(
-        name = "glados-trin",
-        config = ServiceConfig(
-            image = "portalnetwork/trin:latest",
-            ports = {
-                "http": PortSpec(
-                    number = 8545,
-                    application_protocol = "http",
-                    wait = "15s"
-                ),
-                "utp": PortSpec(
-                    number = 9009,
-                    transport_protocol = "UDP",
-                    wait = "15s"
-                )
-            },
-            private_ip_address_placeholder = constants.PRIVATE_IP_ADDRESS_PLACEHOLDER,
-            # move to constants
-            max_cpu = 1000,
-            min_cpu = 0,
-            max_memory = 1000,
-            min_memory = 0,
-            env_vars = {
-                "RUST_LOG": "info",
-            },
-            entrypoint = [
-                "/usr/bin/trin",
-                "--bootnodes={}".format(bootnode_enrs),
-                "--web3-transport=http",
-                "--web3-http-address=http://0.0.0.0:8545/",
-                "--external-address={}:9009".format(constants.PRIVATE_IP_ADDRESS_PLACEHOLDER),
-                "--disable-poke",
-                "--mb=0"
-            ],
-        ),
-    )
-    
+    if glados_config.client_type == constants.CLIENT_TYPE.trin:
+        client_context = glados_trin.launch(
+            plan,
+            "glados-trin",
+            glados_config.image,
+            GLADOS_MIN_CPU,
+            GLADOS_MAX_CPU,
+            GLADOS_MIN_MEMORY,
+            GLADOS_MAX_MEMORY,
+            bootnode_enrs,
+        )
+    else:
+        client_context = glados_fluffy.launch(
+            plan,
+            "glados-fluffy",
+            glados_config.image,
+            GLADOS_MIN_CPU,
+            GLADOS_MAX_CPU,
+            GLADOS_MIN_MEMORY,
+            GLADOS_MAX_MEMORY,
+            bootnode_enrs,
+        )
+
     glados_audit = plan.add_service(
         name = "glados-audit",
         config = ServiceConfig(
@@ -79,7 +67,7 @@ def launch(
             entrypoint = [
                 "/usr/bin/glados-audit",
                  "--database-url={}".format(postgres_output.url),
-                 "--portal-client=http://{}:8545".format(trin.ip_address),
+                 "--portal-client=http://{}:8545".format(client_context.ip_addr),
                  "--concurrency=2",
             ],
         ),
@@ -153,7 +141,7 @@ def launch(
                 "/usr/bin/glados-cartographer",
                 "--database-url={}".format(postgres_output.url),
                 "--transport=http",
-                "--http-url=http://{}:8545".format(trin.ip_address),
+                "--http-url=http://{}:8545".format(client_context.ip_addr),
                 "--concurrency=10",
             ],
         ),
