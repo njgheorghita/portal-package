@@ -40,7 +40,7 @@ GRAFANA_DASHBOARDS_CONFIG_DIRPATH = (
 )
 
 # The min/max CPU/memory that grafana can use
-MIN_CPU = 10
+MIN_CPU = 0
 MAX_CPU = 1000
 MIN_MEMORY = 128
 MAX_MEMORY = 2048

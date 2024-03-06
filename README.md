@@ -22,7 +22,7 @@ If you don't know what pandaops secrets are, you probably don't have access to t
     }
     ```
 2. Download [Kurtosis](https://docs.kurtosis.com/install)
-3. Start Docker
+3. Start Docker.
 4. `kurtosis clean -a && kurtosis run --enclave kurtosis-trin .`
 
 # Simple test example...
