@@ -43,5 +43,8 @@ def launch(
     plan.print("Successfully launched {} bootnodes".format(num_bootnodes))
     plan.print("CLI flag for all bootnodes: {}".format(bootnodes_flag))
 
-    bootnode_enrs = ",".join(bootnode_enrs)
+    if len(bootnode_enrs) == 0:
+        bootnode_enrs = "none"
+    else:
+        bootnode_enrs = ",".join(bootnode_enrs)
     return (all_contexts, bootnode_enrs)

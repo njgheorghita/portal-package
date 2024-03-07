@@ -11,6 +11,8 @@ def launch(
     max_mem,
     bootnode_enrs,
 ):
+    if bootnode_enrs == "none":
+        bootnode_enrs = "default"
     trin = plan.add_service(
         name = service_name,
         config = ServiceConfig(

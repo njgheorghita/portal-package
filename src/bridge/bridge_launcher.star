@@ -10,11 +10,9 @@ def launch(
     max_cpu,
     min_mem,
     max_mem,
+    extra_env_vars,
     bootnode_enrs,
 ):
-    secrets = read_file("../../.secrets.json")
-    secrets = json.decode(secrets)
-
     bridge = plan.add_service(
         name = service_name,
         config =  ServiceConfig(
@@ -28,8 +26,8 @@ def launch(
             },
             env_vars = {
                 "RUST_LOG": "info,portal_bridge=debug,surf=warn",
-                "PANDAOPS_CLIENT_ID": secrets["PANDAOPS_CLIENT_ID"],
-                "PANDAOPS_CLIENT_SECRET": secrets["PANDAOPS_CLIENT_SECRET"],
+                "PANDAOPS_CLIENT_ID": extra_env_vars["PANDAOPS_CLIENT_ID"],
+                "PANDAOPS_CLIENT_SECRET": extra_env_vars["PANDAOPS_CLIENT_SECRET"],
                 "BASE_EL_ENDPOINT": "https://reth-lighthouse.mainnet.na1.ethpandaops.io/",
             },
             min_cpu = min_cpu,

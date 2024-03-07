@@ -16,16 +16,17 @@ def launch(
         "fluffy",
         "--rpc",
         "--rpc-address=0.0.0.0",
-        "--network=none",
         "--nat:extip:{}".format(constants.PRIVATE_IP_ADDRESS_PLACEHOLDER),
         " --storage-capacity=0",
     ]
 
+
+
     if bootnode_enrs != "none":
-        # multiple bootnodes?
-        bootnode = bootnode_enrs.split(",")[0]
-        bootnode = "--bootstrap-node:{}".format(bootnode)
-        entrypoint.append(bootnode)
+        bootnodes = bootnode_enrs.split(",")
+        entrypoint.append("--network=none")
+        for bootnode in bootnodes:
+            entrypoint.append("--bootstrap-node:{}".format(bootnode))
 
     fluffy = plan.add_service(
        name = service_name,

@@ -30,6 +30,7 @@ def launch(
             bridge.max_cpu,
             bridge.min_mem,
             bridge.max_mem,
+            bridge.extra_env_vars,
             bootnode_enrs
         )
         all_contexts.append(context)

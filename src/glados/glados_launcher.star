@@ -4,13 +4,13 @@ glados_trin = import_module("./glados_trin_launcher.star")
 glados_fluffy = import_module("./glados_fluffy_launcher.star")
 
 # The min/max CPU/memory that postgres can use
-POSTGRES_MIN_CPU = 10
+POSTGRES_MIN_CPU = 0
 POSTGRES_MAX_CPU = 1000
 POSTGRES_MIN_MEMORY = 32
 POSTGRES_MAX_MEMORY = 1024
 
 GLADOS_MIN_CPU = 0
-GLADOS_MAX_CPU = 5000
+GLADOS_MAX_CPU = 4000
 GLADOS_MIN_MEMORY = 32
 GLADOS_MAX_MEMORY = 2048
 
@@ -19,6 +19,7 @@ def launch(
     glados_config,
     bootnode_enrs,
 ):
+    secrets = glados_config.extra_env_vars
     postgres_output = postgres.run(
         plan,
         service_name="glados-postgres",
@@ -69,12 +70,10 @@ def launch(
                  "--database-url={}".format(postgres_output.url),
                  "--portal-client=http://{}:8545".format(client_context.ip_addr),
                  "--concurrency=2",
+                 "--provider-url=https://mainnet.infura.io/v3/{}".format(secrets["TRIN_INFURA_PROJECT_ID"])
             ],
         ),
     )
-
-    secrets = read_file("../../.secrets.json")
-    secrets = json.decode(secrets)
 
     glados_monitor = plan.add_service(
         name = "glados-monitor",
