@@ -27,7 +27,7 @@ def launch_prometheus(
         all_participants,
     )
     prometheus_url = prometheus.run(
-        plan, metrics_jobs, MIN_CPU, MAX_CPU, MIN_MEMORY, MAX_MEMORY
+        plan, metrics_jobs, "prometheus", MIN_CPU, MAX_CPU, MIN_MEMORY, MAX_MEMORY
     )
 
     return prometheus_url
